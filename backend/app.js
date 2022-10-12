@@ -16,7 +16,6 @@ const usersRouter = require('./controllers/users');
 const addressesRouter = require('./controllers/addresses');
 const loginRouter = require('./controllers/login');
 
-
 const app = express();
 
 mongoose.connect(config.MONGO_URI)
