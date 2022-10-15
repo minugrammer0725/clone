@@ -29,27 +29,30 @@ const authJwt = (request, response, next) => {
 }
 
 const errorHandler = (error, request, response, next) => {
-  // console.log(error.message);
+  console.log('hello from error handler!');
+  console.log(error.name);
+  console.log(error.message);
   if (error.name === 'CastError') {
-    response.status(400).send({error: 'malformatted id'});
+    return response.status(400).send({error: 'malformatted id'});
   } else if (error.name === 'ValidationError') {
-    response.status(400).send({error: "Validation error"});
+    return response.status(400).send({error: "Validation error"});
   } else if (error.name === 'JsonWebTokenError') {
-    response.status(401).send({error: "invalid web token"});
+    return response.status(401).send({error: "invalid web token"});
   } else if (error.name === 'TokenExpiredError') {
-    response.status(401).send({error: "token expired"});
+    return response.status(401).send({error: "token expired"});
   } else if (error.name === 'Error') {
     if (error.message === 'missing params') {
-      response.status(400).send({error: "missing params"});
+      return response.status(400).send({error: "missing params"});
     } else if (error.message === 'missing body') {
-      response.status(400).send({error: "missing body"});
+      return response.status(400).send({error: "missing body"});
     } else if (error.messge === "invalid user credentials") {
-      response.status(400).send({error: "invalid user credentials"});
+      return response.status(400).send({error: "invalid user credentials"});
     } else if (error.message === "cart item conflict error") {
-      response.status(400).send({error: "cart item conflict error"});
+      return response.status(400).send({error: "cart item conflict error"});
     }
-  }
-  next(error);
+  } 
+  return response.status(401).send({error: "oops something went wrong"});
+  
 }
 
 module.exports = {
