@@ -8,7 +8,7 @@ restaurantsRouter.get('/:restaurantId', async (request, response, next) => {
     const {restaurantId} = request.params;
     if (!restaurantId) throw new Error('missing params');
 
-    const restaurant = await Restaurant.findById(restaurantId);
+    const restaurant = await Restaurant.findById(restaurantId).populate('menu reviews');
     response.status(200).json(restaurant);
   } catch (error) {
     next(error);
@@ -17,7 +17,7 @@ restaurantsRouter.get('/:restaurantId', async (request, response, next) => {
 
 restaurantsRouter.get('/', async (request, response, next) => {
   try {
-    const restaurants = await Restaurant.find({});
+    const restaurants = await Restaurant.find({}).populate('menu');
     response.status(200).json(restaurants);
   } catch (error) {
     next(error);

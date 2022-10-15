@@ -12,7 +12,7 @@ usersRouter.get('/:userId', async (request, response, next) => {
     const {userId} = request.params;
     if (!userId) throw new Error('missing params');
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate('address');
     response.status(200).json(user);
   } catch (error) {
     next(error);

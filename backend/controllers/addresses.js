@@ -28,6 +28,7 @@ try {
 
   // connect address to users
   const user = await User.findById(createdAddress.user);
+  console.log('found user is ', user);
   user.address = createdAddress._id;
   await user.save();
   response.status(201).json(createdAddress);

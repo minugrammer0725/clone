@@ -26,7 +26,7 @@ ordersRouter.get('/user/:userId', authJwt, async (request, response, next) => {
     const {userId} = request.params;
     if (!userId) throw new Error('missing params');
 
-    const orders = await Order.find({user: userId});
+    const orders = await Order.find({user: userId}).populate('user dasher restaurant items');
     response.status(200).json(orders);
   } catch (error) {
     next(error);

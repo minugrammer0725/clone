@@ -13,7 +13,6 @@ loginRouter.post('/', async (request, response, next) => {
 
     const user = await User.findOne({email}); 
     if (!user) throw new Error("invalid user credentials");
-
     const decoded = await bcrypt.compare(password, user.password);
     if (!decoded) throw new Error("invalid user credentials");
     
@@ -28,6 +27,7 @@ loginRouter.post('/', async (request, response, next) => {
     // 3rd param: {expiresIn: 3600}
     response.status(200).send({token, user});
   } catch (error) {
+    console.log('caught it, sending it to error handler..');
     next(error);
   }
 })
